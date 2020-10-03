@@ -16,13 +16,25 @@ function App(): JSX.Element {
     setNewTask("");
   };
 
-  const addTask = (name: string) => {
+  const addTask = (name: string): void => {
     const newTasks: ITask[] = [...tasks, { name: name, done: false }];
     setTasks(newTasks);
   };
 
-  const handleSetNewTask = ({ target }: any) => {
+  const handleSetNewTask = ({ target }: any): void => {
     setNewTask(target.value);
+  };
+
+  const toggleDoneTask = (i: number): void => {
+    const newTasks: ITask[] = [...tasks];
+    newTasks[i].done = !newTasks[i].done;
+    setTasks(newTasks);
+  };
+
+  const removeTask = (i: number): void => {
+    const newTasks: ITask[] = [...tasks];
+    newTasks.splice(i, 1);
+    setTasks(newTasks);
   };
 
   return (
@@ -53,6 +65,20 @@ function App(): JSX.Element {
                 <h2 style={{ textDecoration: task.done ? "line-through" : "" }}>
                   {task.name}
                 </h2>
+                <div>
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => toggleDoneTask(i)}
+                  >
+                    {task.done ? "✓" : "✗"}
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => removeTask(i)}
+                  >
+                    🗑
+                  </button>
+                </div>
               </div>
             ))}
           </div>
