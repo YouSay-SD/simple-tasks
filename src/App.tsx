@@ -1,12 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+
+type FormElement = React.FormEvent<HTMLFormElement>;
 
 function App(): JSX.Element {
+
+  const [ newTask, setNewTask ] = useState('');
+
+  const handleSubmit = ( e: FormElement ) => {
+    e.preventDefault();
+  }
+
+  const handleSetNewTask = ({ target }: any) => {
+    setNewTask( target.value );
+  }
+
   return (
-    <h1>
-      adsa
-    </h1>
+    <>
+      <form
+        onSubmit={ handleSubmit }
+      >
+        <input 
+          type="text" 
+          onChange={ handleSetNewTask }  
+        />
+
+        <button>
+          Save
+        </button>
+      </form> 
+    </>
   );
 }
 
